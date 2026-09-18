@@ -1,7 +1,14 @@
 import seaborn as sns
+import seaborn as sns
 import pandas as pd
 
-df_bellevue = pd.read_csv("bellevue_almshouse_modified.csv")
+url = (
+    "https://github.com/melaniewalsh/Intro-Cultural-Analytics/"
+    "raw/master/book/data/bellevue_almshouse_modified.csv"
+)
+
+df_bellevue = pd.read_csv(url)
+
 
 def fibonacci(n):
     if n <= 1:
