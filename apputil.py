@@ -1,6 +1,5 @@
-import seaborn as sns
-import seaborn as sns
 import pandas as pd
+import seaborn as sns
 
 url = (
     "https://github.com/melaniewalsh/Intro-Cultural-Analytics/"
@@ -11,6 +10,7 @@ df_bellevue = pd.read_csv(url)
 
 
 def fibonacci(n):
+    """Return the nth Fibonacci number using recursion."""
     if n <= 1:
         return n
 
@@ -18,6 +18,7 @@ def fibonacci(n):
 
 
 def to_binary(n):
+    """Return the binary representation of n as a string using recursion."""
     if n < 2:
         return str(n)
 
@@ -25,18 +26,23 @@ def to_binary(n):
 
 
 def task_1():
+    """Return columns sorted from least to most missing values."""
     df = df_bellevue.copy()
 
+    # Treat unclear gender values as missing before counting missing data.
     invalid_gender = ~df["gender"].isin(["m", "w"])
     df.loc[invalid_gender, "gender"] = pd.NA
 
-    print("The gender column contains unclear values. "
-          "These were treated as missing values.")
+    print(
+        "The gender column contains unclear values. "
+        "These were treated as missing values."
+    )
 
     return df.isna().sum().sort_values().index.tolist()
 
 
 def task_2():
+    """Return total admissions for each year as a DataFrame."""
     df = df_bellevue.copy()
 
     df["year"] = pd.to_datetime(df["date_in"]).dt.year
@@ -49,8 +55,10 @@ def task_2():
 
 
 def task_3():
+    """Return the average age for each valid gender as a Pandas Series."""
     df = df_bellevue.copy()
 
+    # Exclude unclear gender values from the average age calculation.
     invalid_gender = ~df["gender"].isin(["m", "w"])
     df.loc[invalid_gender, "gender"] = pd.NA
 
@@ -60,6 +68,7 @@ def task_3():
 
 
 def task_4():
+    """Return the five most common professions from most to least common."""
     return (
         df_bellevue["profession"]
         .value_counts()
